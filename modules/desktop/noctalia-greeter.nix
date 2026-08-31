@@ -1,29 +1,14 @@
-{inputs, ...}: {
+{
   flake.nixosModules.desktop = {pkgs, ...}: {
-    #services.displayManager.noctalia-greeter = {
-    #  enable = true;
-
-    #  cursorTheme = {
-    #    name = "Imouto";
-    #    package = pkgs.imouto-cursor-theme;
-    #  };
-
-    #  settings.cursor.size = 32;
-    #};
-    imports = [inputs.noctalia-greeter.nixosModules.default];
-
-    programs.noctalia-greeter = {
+    services.displayManager.noctalia-greeter = {
       enable = true;
-      settings = {
-        cursor = {
-          theme = "Imouto";
-          size = 32;
-          path = "${pkgs.imouto-cursor-theme}/share/icons";
-        };
-        keyboard = {
-          layout = "us";
-        };
+
+      cursorTheme = {
+        name = "Imouto";
+        package = pkgs.imouto-cursor-theme;
       };
+
+      settings.cursor.size = 32;
     };
 
     persistence.dirs = [
