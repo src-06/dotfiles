@@ -16,14 +16,8 @@
       };
     };
 
-    persistence = {
-      dirs = [
-        "/var/lib/alsa"
-      ];
-
-      cache.dirs = [
-        ".local/state/wireplumber"
-      ];
-    };
+    persistence.cache.dirs = [
+      ".local/state/wireplumber"
+    ];
   };
 }
