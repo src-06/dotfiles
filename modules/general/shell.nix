@@ -15,7 +15,7 @@
         interactiveShellInit = ''
           set fish_greeting
 
-          rip completions fish | source
+          #rip completions fish | source
 
           #fish_add_path ~/.local/bin
           #fish_add_path ~/.cargo/bin
