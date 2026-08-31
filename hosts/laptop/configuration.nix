@@ -5,6 +5,7 @@
 
       self.nixosModules.desktop
       self.nixosModules.apps
+      self.nixosModules.devs
     ];
 
     programs.resolved.enable = true;
