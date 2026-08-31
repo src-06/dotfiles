@@ -17,6 +17,9 @@
     persistence.cache.dirs = [
       ".local/share/opencode"
       ".local/state/opencode"
+
+      ".local/share/org.localsend.localsend_app"
+      ".cache/obs-studio"
     ];
   };
 }
