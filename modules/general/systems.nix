@@ -83,6 +83,7 @@
         dirs = [
           ".ssh"
           ".local/share/keyrings"
+          ".local/share/applications"
         ];
 
         files = [
