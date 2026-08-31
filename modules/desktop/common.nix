@@ -45,9 +45,9 @@
       cursor_shape beam
       cursor_trail 3
 
-      background_opacity 0.80
+      background_opacity 0.8
 
-      window_margin_width 8.0 10.0
+      window_margin_width 6.0
       remember_window_size false
       initial_window_width 960
       initial_window_height 480
@@ -57,18 +57,23 @@
       enable_audio_bell no
     '';
 
-    persistence.cache.dirs = [
-      ".config/dconf"
-      ".gtkrc-2.0"
-      ".config/gtk-3.0"
-      ".config/gtk-4.0"
-      ".config/xsettingsd"
+    persistence.cache = {
+      dirs = [
+        ".config/dconf"
+        ".config/gtk-3.0"
+        ".config/gtk-4.0"
+        ".config/xsettingsd"
 
-      ".config/qt5ct"
-      ".config/qt6ct"
+        ".config/qt5ct"
+        ".config/qt6ct"
 
-      ".config/Thunar"
-      ".config/xfce4/xfconf"
-    ];
+        ".config/Thunar"
+        ".config/xfce4/xfconf"
+      ];
+
+      files = [
+        ".gtkrc-2.0"
+      ];
+    };
   };
 }
