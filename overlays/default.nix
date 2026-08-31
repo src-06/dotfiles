@@ -1,6 +1,7 @@
 {inputs, ...}: {
   default = final: prev: let
-    zen-browser-pkgs = inputs.zen-browser.packages.${final.stdenv.hostPlatform.system}.default;
+    system = final.stdenv.hostPlatform.system;
+    zen-browser-pkgs = inputs.zen-browser.packages.${system}.default;
   in
     (import ../packages {pkgs = final;})
     // {
