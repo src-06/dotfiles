@@ -25,7 +25,7 @@
 
       # Image editor
       #gimp
-      #pinta
+      pinta
 
       # Video editor
       #shotcut
