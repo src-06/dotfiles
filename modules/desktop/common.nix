@@ -1,61 +1,98 @@
 {
   flake.nixosModules.desktop = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
-      (papirus-icon-theme.override {color = "yaru";})
-      imouto-cursor-theme
-      adw-gtk3
+    environment = {
+      systemPackages = with pkgs; [
+        (papirus-icon-theme.override {color = "yaru";})
+        imouto-cursor-theme
+        adw-gtk3
 
-      kdePackages.qt6ct
-      nwg-look
+        qt6Packages.qt6ct
+        nwg-look
 
-      kitty
-      xarchiver
-      gparted
+        imagemagick
+        ffmpeg-full
 
-      imagemagick
-      ffmpeg-full
-    ];
+        ffmpegthumbnailer # Video thumbnailer
+        icoextract # Window executable files thumbnailer
+        pcmanfm-qt
+        evince # Document thumbnailer and viewer
+        (symlinkJoin {
+          name = "evince";
+          paths = [evince];
+          nativeBuildInputs = [makeWrapper];
+          postBuild = ''
+            wrapProgram $out/bin/evince \
+              --prefix GDK_PIXBUF_MODULE_FILE : "${webp-pixbuf-loader}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+          '';
+        })
 
-    programs = {
-      xfconf.enable = true;
-      thunar = {
-        enable = true;
-        plugins = with pkgs; [
-          (thunar-archive-plugin.overrideAttrs (old: {
-            postInstall =
-              (old.postInstall or "")
-              + ''
-                install -Dm755 ${pkgs.xarchiver}/libexec/thunar-archive-plugin/xarchiver.tap $out/libexec/thunar-archive-plugin/xarchiver.tap
-              '';
-          }))
-        ];
+        kitty
+        xarchiver
+        gparted
+      ];
+
+      sessionVariables = {
+        TERMINAL = "kitty";
       };
     };
 
     services = {
       libinput.enable = true;
       gvfs.enable = true;
-      tumbler.enable = true;
     };
 
-    hjem.config.files."kitty/kitty.conf".text = ''
-      font_family CaskaydiaMono Nerd Font Mono
-      font_size 11.0
+    xdg = {
+      icons.fallbackCursorThemes = [pkgs.imouto-cursor-theme];
+      mime.addedAssociations = {
+        "application/pdf" = "org.gnome.Evince.desktop";
+        "application/x-cbz" = "mpv.desktop";
+        "application/zip" = "xarchiver.desktop";
+        "image/avif" = "imv-dir.desktop";
+        "image/bmp" = "imv-dir.desktop";
+        "image/gif" = "imv-dir.desktop";
+        "image/heif" = "imv-dir.desktop";
+        "image/jpeg" = "imv-dir.desktop";
+        "image/jpg" = "imv-dir.desktop";
+        "image/png" = "imv-dir.desktop";
+        "image/svg+xml" = "imv-dir.desktop";
+        "image/x-bmp" = "imv-dir.desktop";
+        "image/x-ico" = "imv-dir.desktop";
+        "image/x-png" = "imv-dir.desktop";
+        "image/webp" = "mpv.desktop";
+        "inode/directory" = "pcmanfm-qt.desktop";
+      };
+    };
 
-      cursor_shape beam
-      cursor_trail 3
+    hjem = {
+      config.files = {
+        "kitty/kitty.conf".text = ''
+          font_family CaskaydiaMono Nerd Font Mono
+          font_size 11.0
 
-      background_opacity 0.8
+          cursor_shape beam
+          cursor_trail 3
 
-      window_margin_width 6.0
-      remember_window_size false
-      initial_window_width 960
-      initial_window_height 480
+          background_opacity 0.8
 
-      scrollback_lines 10000
-      confirm_os_window_close 0
-      enable_audio_bell no
-    '';
+          window_margin_width 6.0
+          remember_window_size false
+          initial_window_width 960
+          initial_window_height 480
+
+          scrollback_lines 10000
+          confirm_os_window_close 0
+          enable_audio_bell no
+        '';
+
+        "user-dirs.dirs".text = ''
+          XDG_DOWNLOAD_DIR="$HOME/Downloads"
+          XDG_DOCUMENTS_DIR="$HOME/Libraries/Documents"
+          XDG_MUSIC_DIR="$HOME/Libraries/Music"
+          XDG_PICTURES_DIR="$HOME/Libraries/Photos"
+          XDG_VIDEOS_DIR="$HOME/Libraries/Videos"
+        '';
+      };
+    };
 
     persistence.cache = {
       dirs = [
@@ -67,8 +104,7 @@
         ".config/qt5ct"
         ".config/qt6ct"
 
-        ".config/Thunar"
-        ".config/xfce4/xfconf"
+        ".config/pcmanfm-qt"
       ];
 
       files = [
