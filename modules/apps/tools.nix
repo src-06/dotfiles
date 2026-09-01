@@ -19,7 +19,7 @@
       ".local/state/opencode"
 
       ".local/share/org.localsend.localsend_app"
-      ".cache/obs-studio"
+      ".config/obs-studio"
     ];
   };
 }
