@@ -18,16 +18,11 @@ stdenv.mkDerivation (finalAttrs: {
   version = "3.11.0";
 
   src = fetchFromGitHub {
-    owner = "pear-devs";
+    owner = "src-06";
     repo = "pear-desktop";
     tag = "v${finalAttrs.version}";
     hash = "sha256-M8YFpeauM55fpNyHSGQm8iZieV0oWqOieVThhglKKPE=";
   };
-
-  #patches = [
-  #  # MPRIS's DesktopEntry property needs to match the desktop entry basename
-  #  ./fix-mpris-desktop-entry.patch
-  #];
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
@@ -66,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "pear-desktop %u";
       icon = "pear-desktop";
       desktopName = "YouTube Music";
-      comment = "Electron wrapper around YouTube Music";
+      comment = "YouTube Music Desktop App bundled with custom plugins (and built-in adblocker / downloader)";
       startupWMClass = "youtube-music";
       categories = ["AudioVideo"];
     })
