@@ -8,6 +8,8 @@
       vesktop
     ];
 
+    xdg.mime.removedAssociations."text/xml" = "zen.desktop";
+
     persistence.cache.dirs = [
       ".config/zen"
       ".config/vesktop"
