@@ -43,7 +43,6 @@
   in {
     overlays = import ./overlays {
       inherit inputs;
-      outputs = self.outputs;
     };
 
     nixosConfigurations = lib.mapAttrs mkHost listHost;

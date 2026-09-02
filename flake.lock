@@ -91,6 +91,26 @@
         "type": "github"
       }
     },
+    "nix-vscode-extensions": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788237531,
+        "narHash": "sha256-u25EYPwDX41xtn4/cE+XDGQg9t1WOXK0WC7hh33sadA=",
+        "owner": "nix-community",
+        "repo": "nix-vscode-extensions",
+        "rev": "835647e781aa71e7ea1b21169daed842a3ca0142",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-vscode-extensions",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1787900134,
@@ -149,6 +169,7 @@
         "disko": "disko",
         "flake-parts": "flake-parts",
         "hjem": "hjem",
+        "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs",
         "nvf": "nvf",
         "preservation": "preservation",

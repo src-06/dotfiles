@@ -1,5 +1,10 @@
 {inputs, ...}: {
   flake.nixosModules.apps = {pkgs, ...}: {
+    environment.sessionVariables = {
+      VISUAL = "nvim";
+      EDITOR = "nvim";
+    };
+
     imports = [
       inputs.nvf.nixosModules.default
     ];
@@ -54,10 +59,7 @@
           filetree.neo-tree = {
             enable = true;
             setupOpts = {
-              window = {
-                position = "right";
-                width = 30;
-              };
+              window.width = 30;
 
               filesystem = {
                 use_libuv_file_watcher = true;
@@ -83,8 +85,11 @@
             smartcolumn.enable = true;
             colorizer.enable = true;
             illuminate.enable = true;
-            noice.enable = true;
             fastaction.enable = true;
+            noice = {
+              enable = true;
+              setupOpts.views.cmdline_popup.position.row = -4;
+            };
           };
 
           notes.todo-comments.enable = true;
@@ -145,21 +150,71 @@
             json.enable = true;
             toml.enable = true;
             yaml.enable = true;
-
-            cmake.enable = true;
-            just.enable = true;
-
-            clang.enable = true;
-            qml.enable = true;
-            typescript.enable = true;
-
-            css.enable = true;
-            html.enable = true;
-            svelte.enable = true;
-            tsx.enable = true;
-            vue.enable = true;
           };
         };
+      };
+
+      vscode = {
+        enable = true;
+        package = pkgs.vscodium-fhs;
+        # If in repo NixOS have extension in list use from `vscode-extensions` if not found uses from source vscode marketplace `vscode-marketplace` (nix-community/nix-vscode-extensions)
+        extensions = with pkgs.vscode-extensions;
+        with pkgs.vscode-marketplace; [
+          github.github-vscode-theme
+          yusifaliyevpro.vscicons
+          pkief.material-product-icons
+
+          oderwat.indent-rainbow
+          naumovs.color-highlight
+
+          timonwong.shellcheck
+          shardulm94.trailing-spaces
+          usernamehw.errorlens
+          kisstkondoros.vscode-gutter-preview
+          christian-kohler.path-intellisense
+          streetsidesoftware.code-spell-checker
+          mitchdenny.ecdc
+
+          editorconfig.editorconfig
+          dotenv.dotenv-vscode
+
+          redhat.vscode-yaml
+          tamasfe.even-better-toml
+
+          #dbaeumer.vscode-eslint
+          #esbenp.prettier-vscode
+          #oxc.oxc-vscode
+          pflannery.vscode-versionlens
+
+          antfu.unocss
+          zignd.html-css-class-completion
+
+          formulahendry.auto-rename-tag
+          formulahendry.auto-close-tag
+          anteprimorac.html-end-tag-labels
+          bradgashler.htmltagwrap
+
+          yzhang.markdown-all-in-one
+          shd101wyy.markdown-preview-enhanced
+
+          budparr.language-hugo-vscode
+          svelte.svelte-vscode
+          vue.volar
+        ];
+      };
+    };
+
+    xdg.mime = {
+      addedAssociations = {
+        "text/*" = "mvim.desktop";
+        "text/markdown" = "mvim.desktop";
+        "text/plain" = "mvim.desktop";
+        "text/xml" = "mvim.desktop";
+      };
+
+      removedAssociations = {
+        "text/plain" = "codium.desktop";
+        "inode/directory" = "codium.desktop";
       };
     };
   };

@@ -1,10 +1,10 @@
 {inputs, ...}: {
-  default = final: prev: let
+  default = final: _: let
     system = final.stdenv.hostPlatform.system;
-    zen-browser-pkgs = inputs.zen-browser.packages.${system}.default;
   in
     (import ../packages {pkgs = final;})
     // {
-      zen-browser = zen-browser-pkgs;
+      zen-browser = inputs.zen-browser.packages.${system}.default;
+      vscode-marketplace = inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace;
     };
 }
