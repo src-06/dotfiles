@@ -167,6 +167,20 @@
       };
     };
 
+    # Find and Change Directory
+    hjem.config.files."fish/functions/fcd.fish".text = ''
+      function fcd
+        set -l dir (fd -t d . $argv[1] | fzf)
+        test -n "$dir"; and cd "$dir"
+      end
+    '';
+
+    # Save for bash/zsh later...
+    #fcd() {
+    #  local dir
+    #  dir=$(fd -t d . "${1:-.}" | fzf) && [ -n "$dir" ] && cd "$dir"
+    #}
+
     persistence.cache.dirs = [
       ".local/share/fish"
     ];
