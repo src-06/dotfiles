@@ -42,7 +42,7 @@
     };
 
     xdg = {
-      icons.fallbackCursorThemes = [pkgs.imouto-cursor-theme];
+      icons.fallbackCursorThemes = ["Imouto"];
       mime.addedAssociations = {
         "application/pdf" = "org.gnome.Evince.desktop";
         "application/x-cbz" = "mpv.desktop";
