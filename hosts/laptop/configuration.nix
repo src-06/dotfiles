@@ -6,6 +6,8 @@
       self.nixosModules.desktop
       self.nixosModules.apps
       self.nixosModules.devs
+
+      self.nixosModules.services
     ];
 
     preferences.user.fullname = "Kasane Teto";

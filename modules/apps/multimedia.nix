@@ -7,13 +7,13 @@
           modernz
           manga-reader
           mpv-gallery-view
-          mpv-image-viewer.minimap
-          mpv-image-viewer.image-positioning
+          #mpv-image-viewer.minimap
+          #mpv-image-viewer.image-positioning
         ];
       })
 
       # Music player
-      (audacious.override {withPlugins = true;})
+      supersonic
       pear-desktop
 
       # Image viewer
@@ -36,6 +36,7 @@
     ];
 
     persistence.cache.dirs = [
+      ".config/supersonic"
       ".config/YouTube Music"
     ];
   };
