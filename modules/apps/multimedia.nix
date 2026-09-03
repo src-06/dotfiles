@@ -7,8 +7,6 @@
           modernz
           manga-reader
           mpv-gallery-view
-          #mpv-image-viewer.minimap
-          #mpv-image-viewer.image-positioning
         ];
       })
 

@@ -10,8 +10,6 @@
       self.nixosModules.services
     ];
 
-    preferences.user.fullname = "Kasane Teto";
-
     programs.resolved.enable = true;
 
     persistence.data.dirs = [
