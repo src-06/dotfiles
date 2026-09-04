@@ -13,18 +13,9 @@
         ffmpeg-full
 
         ffmpegthumbnailer # Video thumbnailer
-        icoextract # Window executable files thumbnailer
+        icoextract # Windows executable files thumbnailer
         pcmanfm-qt
         evince # Document thumbnailer and viewer
-        (symlinkJoin {
-          name = "evince";
-          paths = [evince];
-          nativeBuildInputs = [makeWrapper];
-          postBuild = ''
-            wrapProgram $out/bin/evince \
-              --prefix GDK_PIXBUF_MODULE_FILE : "${webp-pixbuf-loader}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-          '';
-        })
 
         kitty
         xarchiver
@@ -85,6 +76,7 @@
         '';
 
         "user-dirs.dirs".text = ''
+          XDG_DESKTOP_DIR="$HOME"
           XDG_DOWNLOAD_DIR="$HOME/Downloads"
           XDG_DOCUMENTS_DIR="$HOME/Libraries/Documents"
           XDG_MUSIC_DIR="$HOME/Libraries/Music"

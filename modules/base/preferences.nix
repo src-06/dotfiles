@@ -4,14 +4,17 @@
     lib,
     ...
   }: let
+    inherit (lib) mkOption hasPrefix;
+    inherit (lib.types) addCheck str;
+
     cfg = config.preferences;
 
     mkColor = default:
-      lib.mkOption {
-        type = lib.types.addCheck lib.types.str (x: !isNull (builtins.match "#?[0-9a-fA-F]{6}" x));
+      mkOption {
+        type = addCheck str (x: !isNull (builtins.match "#?[0-9a-fA-F]{6}" x));
         inherit default;
         apply = hex:
-          if lib.hasPrefix "#" hex
+          if hasPrefix "#" hex
           then hex
           else "#${hex}";
         description = "Base16 hex color code \"#FFFFFF\"";
@@ -19,28 +22,32 @@
   in {
     options.preferences = {
       user = {
-        name = lib.mkOption {
-          type = lib.types.str;
+        name = mkOption {
+          type = str;
           default = "src-06";
         };
-        fullname = lib.mkOption {
-          type = lib.types.str;
+        fullname = mkOption {
+          type = str;
           default = "Violet Evergarden";
         };
-        home = lib.mkOption {
-          type = lib.types.str;
+        home = mkOption {
+          type = str;
           default = "/home/${cfg.user.name}";
         };
       };
 
-      hostname = lib.mkOption {
-        type = lib.types.str;
+      hostname = mkOption {
+        type = str;
         default = "NixOS";
       };
 
       theme = {
-        name = lib.mkOption {
-          type = lib.types.str;
+        id = mkOption {
+          type = str;
+          default = "base16-theme-color";
+        };
+        name = mkOption {
+          type = str;
           default = "Base16 theme color";
         };
         colors = {
@@ -48,10 +55,10 @@
           base01 = mkColor "#1E222A"; # Lighter Background (status bars, line number and folding marks)
           base02 = mkColor "#2D3340"; # Selection Background
           base03 = mkColor "#454A52"; # Comments, Invisibles, Line Highlighting
-          base04 = mkColor "#566974"; # Dark Foreground (status bars)
+          base04 = mkColor "#838B8F"; # Dark Foreground (status bars)
           base05 = mkColor "#C6BEB7"; # Default Foreground, Caret, Delimiters, Operators
           base06 = mkColor "#EAD6DA"; # Light Foreground (Not often used)
-          base07 = mkColor "#FBF5DF"; # Light Background (Not often used)
+          base07 = mkColor "#F0E9DA"; # Light Background (Not often used)
           base08 = mkColor "#D95757"; # Red (Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted)
           base09 = mkColor "#FFA63A"; # Orange (Integers, Boolean, Constants, XML Attributes, Markup Link Url)
           base0A = mkColor "#FFDA73"; # Yellow (Classes, Markup Bold, Search Text Background)
