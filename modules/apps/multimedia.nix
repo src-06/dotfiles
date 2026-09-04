@@ -11,7 +11,7 @@
       })
 
       # Music player
-      supersonic
+      rufin
       pear-desktop
 
       # Image viewer
@@ -34,7 +34,7 @@
     ];
 
     persistence.cache.dirs = [
-      ".config/supersonic"
+      ".config/rufin"
       ".config/YouTube Music"
     ];
   };

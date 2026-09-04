@@ -76,7 +76,6 @@
         '';
 
         "user-dirs.dirs".text = ''
-          XDG_DESKTOP_DIR="$HOME"
           XDG_DOWNLOAD_DIR="$HOME/Downloads"
           XDG_DOCUMENTS_DIR="$HOME/Libraries/Documents"
           XDG_MUSIC_DIR="$HOME/Libraries/Music"
