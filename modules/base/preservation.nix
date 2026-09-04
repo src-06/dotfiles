@@ -4,6 +4,8 @@
     lib,
     ...
   }: let
+    inherit (lib) mkIf mkOption;
+    inherit (lib.types) listOf str;
     cfg = config.persistence;
     user = config.preferences.user.name;
     persistUserData =
@@ -12,41 +14,41 @@
       else "/persist/userdata";
   in {
     options.persistence = {
-      dirs = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
+      dirs = mkOption {
+        type = listOf str;
         default = [];
         description = "Persistance system data directories";
       };
 
-      files = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
+      files = mkOption {
+        type = listOf str;
         default = [];
         description = "Persistance system data files";
       };
 
       cache = {
-        dirs = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
+        dirs = mkOption {
+          type = listOf str;
           default = [];
           description = "Persistance user cache directories";
         };
 
-        files = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
+        files = mkOption {
+          type = listOf str;
           default = [];
           description = "Persistance user cache files";
         };
       };
 
       data = {
-        dirs = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
+        dirs = mkOption {
+          type = listOf str;
           default = [];
           description = "Persistance user data directories";
         };
 
-        files = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
+        files = mkOption {
+          type = listOf str;
           default = [];
           description = "Persistance user data files";
         };
@@ -57,7 +59,7 @@
       inputs.preservation.nixosModules.default
     ];
 
-    config = lib.mkIf config.programs.btrfs-ephemeral.enable {
+    config = mkIf config.programs.btrfs-ephemeral.enable {
       preservation = {
         enable = true;
 

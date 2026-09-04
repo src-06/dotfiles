@@ -4,8 +4,8 @@
     lib,
     ...
   }: let
+    inherit (config.preferences.user) name home;
     cfg = config.hjem;
-    user = config.preferences.user;
   in {
     options.hjem = {
       enable = lib.mkOption {
@@ -53,10 +53,10 @@
       hjem = {
         clobberByDefault = lib.mkDefault true;
 
-        users.${user.name} = {
+        users.${name} = {
           enable = lib.mkDefault true;
-          user = user.name;
-          directory = user.home;
+          user = name;
+          directory = home;
 
           files = cfg.file;
 

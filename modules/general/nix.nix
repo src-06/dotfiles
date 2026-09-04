@@ -4,8 +4,7 @@
     config,
     ...
   }: let
-    user = config.preferences.user.name;
-    home = config.users.users.${user}.home;
+    inherit (config.preferences.user) name home;
   in {
     system.stateVersion = "26.05";
 
@@ -20,7 +19,7 @@
       settings = {
         trusted-users = [
           "root"
-          user
+          name
         ];
 
         auto-optimise-store = true;
