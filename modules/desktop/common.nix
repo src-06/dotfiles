@@ -24,6 +24,8 @@
 
       sessionVariables = {
         TERMINAL = "kitty";
+        XCURSOR_THEME = "Imouto";
+        XCURSOR_SIZE = 32;
       };
     };
 
