@@ -37,8 +37,9 @@
           rsd = "rsync -av --delete --human-readable";
           rst = "rsync -av --delete --dry-run --human-readable";
 
-          yt-dlm = "yt-dlp -x --audio-format opus --audio-quality 0 --embed-metadata --embed-thumbnail --download-archive .ytm --no-overwrites -o '%(uploader)s - %(title)s.%(ext)s'";
-          yt-dlv = "yt-dlp -f 'bv*[height<=720][ext=mp4]+ba*' --embed-metadata -o '%(uploader)s - %(title)s.%(ext)s'";
+          ytm = "yt-dlp -x --audio-format opus --audio-quality 0 --embed-metadata --embed-thumbnail --download-archive .ytm --no-overwrites -o '%(uploader)s/%(title)s.%(ext)s'";
+          ytv = "yt-dlp -f 'bv*[height<=720]+ba*' --embed-metadata -o '%(uploader)s - %(title)s.%(ext)s'";
+          ytp = "yt-dlp -f 'bv*[height<=720]+ba*' --embed-metadata -o '%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'";
         };
       };
 
