@@ -1,4 +1,4 @@
-{
+{inputs, ...}: {
   flake.nixosModules.desktop = {
     pkgs,
     config,
@@ -46,6 +46,8 @@
       };
     };
   in {
+    imports = [inputs.noctalia.nixosModules.default];
+
     environment.systemPackages = with pkgs; [
       # Needed for noctalia specific plugins
       pulseaudio

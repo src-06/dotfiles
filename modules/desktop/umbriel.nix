@@ -1,6 +1,11 @@
-{
+{inputs, ...}: {
   flake.nixosModules.desktop = {pkgs, ...}: {
-    programs.umbriel.enable = true;
+    imports = [inputs.umbriel.nixosModules.default];
+
+    programs.umbriel = {
+      enable = true;
+      portalPackage = pkgs.xdg-desktop-portal-umbriel;
+    };
 
     hjem.config.files."xdg-desktop-portal-umbriel/config.toml".text = ''
       [screencast]
