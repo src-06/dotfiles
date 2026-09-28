@@ -2,7 +2,7 @@
   flake.nixosModules.devs = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [
       nginx
-      mariadb
+      mariadb_114
       php84
       php84Packages.composer
       process-compose
