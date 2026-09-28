@@ -1,7 +1,9 @@
 {
   flake.nixosModules.base = {
+    pkgs,
     config,
     lib,
+    host,
     ...
   }: let
     inherit (lib) mkOption hasPrefix;
@@ -38,7 +40,7 @@
 
       hostname = mkOption {
         type = str;
-        default = "NixOS";
+        default = host;
       };
 
       theme = {
@@ -72,10 +74,23 @@
     };
 
     config = {
-      users.users.${cfg.user.name} = {
-        isNormalUser = true;
-        home = cfg.user.home;
-        description = cfg.user.fullname;
+      users.users = {
+        ${cfg.user.name} = {
+          isNormalUser = true;
+          home = cfg.user.home;
+          description = cfg.user.fullname;
+          extraGroups = [
+            "wheel"
+            "networkmanager"
+          ];
+
+          #initialPassword = "1";
+          hashedPasswordFile = "/persist/passwd";
+
+          shell = pkgs.fish;
+        };
+
+        root.shell = pkgs.fish;
       };
 
       networking.hostName = cfg.hostname;
