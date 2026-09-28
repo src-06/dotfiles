@@ -1,6 +1,7 @@
 {
   flake.nixosModules.general = {
     outputs,
+    pkgs,
     config,
     ...
   }: let
@@ -57,7 +58,15 @@
         flake = "${home}/Projects/Config";
       };
 
-      nix-ld.enable = true;
+      nix-ld = {
+        enable = true;
+        libraries = with pkgs; [
+          glibc
+          stdenv.cc.cc
+          stdenv.cc.cc.lib
+          zlib
+        ];
+      };
     };
   };
 }
