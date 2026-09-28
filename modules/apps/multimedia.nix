@@ -34,6 +34,7 @@
     ];
 
     persistence.cache.dirs = [
+      ".cache/rufin"
       ".config/rufin"
       ".config/YouTube Music"
     ];
