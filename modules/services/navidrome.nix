@@ -3,11 +3,8 @@
     services.navidrome = {
       enable = true;
       settings = {
-        Address = "127.0.0.1";
-        Port = 4533;
         EnableInsightsCollector = false;
         MusicFolder = "/mnt/Data/Libraries/Music";
-        PlaylistsPath = "/mnt/Data/Libraries/Music/Playlists";
         Backup.Path = "";
         Plugins.Enabled = false;
       };
