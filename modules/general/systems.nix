@@ -4,7 +4,11 @@
       self.nixosModules.base
     ];
 
-    hardware.bluetooth.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+      settings.General.AutoEnable = false;
+    };
 
     networking = {
       networkmanager.enable = true;
@@ -13,13 +17,13 @@
         enable = true;
         allowPing = true;
 
-        # allowedTCPPorts = [
-        #   # 80 # http
-        #   # 443 # https
-        #   3000 # Nuxt, Next.js
-        #   5173 # Vite
-        #   8888 # My custom server port
-        # ];
+        allowedTCPPorts = [
+          #   # 80 # http
+          #   # 443 # https
+          #   3000 # Nuxt, Next.js
+          5173 # Vite
+          #   8888 # My custom server port
+        ];
       };
     };
 
