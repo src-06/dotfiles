@@ -4,13 +4,20 @@
     lib,
     ...
   }: let
+    inherit (lib) mkOption mkDefault mkIf;
+    inherit (lib.types) listOf bool str;
+
     cfg = config.programs.resolved;
   in {
     options.programs.resolved = {
-      enable = lib.mkEnableOption "Enable systemd-resolved for managing DNS";
+      enable = mkOption {
+        type = bool;
+        default = true;
+        description = "Enable systemd-resolved for managing DNS";
+      };
 
-      dns = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
+      dns = mkOption {
+        type = listOf str;
         default = [];
         example = [
           "1.1.1.1"
@@ -20,22 +27,22 @@
       };
     };
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
       networking = {
         networkmanager = {
-          enable = lib.mkDefault true;
-          dns = lib.mkDefault "systemd-resolved";
+          enable = mkDefault true;
+          dns = mkDefault "systemd-resolved";
         };
 
         nameservers = cfg.dns;
       };
 
       services.resolved = {
-        enable = lib.mkDefault true;
+        enable = mkDefault true;
 
         settings.Resolve = {
-          DNSOverTLS = lib.mkDefault true;
-          DNSSEC = lib.mkDefault "true";
+          DNSOverTLS = mkDefault true;
+          DNSSEC = mkDefault "true";
         };
       };
     };
