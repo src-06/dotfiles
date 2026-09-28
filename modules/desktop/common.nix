@@ -12,7 +12,8 @@
         imagemagick
         ffmpeg-full
 
-        ffmpegthumbnailer # Video thumbnailer
+        gst-thumbnailers # Audio and Video thumbnailer
+        #ffmpegthumbnailer # Video thumbnailer
         icoextract # Windows executable files thumbnailer
         pcmanfm-qt
         evince # Document thumbnailer and viewer
@@ -36,23 +37,32 @@
 
     xdg = {
       icons.fallbackCursorThemes = ["Imouto"];
-      mime.addedAssociations = {
-        "application/pdf" = "org.gnome.Evince.desktop";
-        "application/x-cbz" = "mpv.desktop";
-        "application/zip" = "xarchiver.desktop";
-        "image/avif" = "imv-dir.desktop";
-        "image/bmp" = "imv-dir.desktop";
-        "image/gif" = "imv-dir.desktop";
-        "image/heif" = "imv-dir.desktop";
-        "image/jpeg" = "imv-dir.desktop";
-        "image/jpg" = "imv-dir.desktop";
-        "image/png" = "imv-dir.desktop";
-        "image/svg+xml" = "imv-dir.desktop";
-        "image/x-bmp" = "imv-dir.desktop";
-        "image/x-ico" = "imv-dir.desktop";
-        "image/x-png" = "imv-dir.desktop";
-        "image/webp" = "mpv.desktop";
-        "inode/directory" = "pcmanfm-qt.desktop";
+
+      mime = {
+        defaultApplications = {
+          "application/pdf" = "org.gnome.Evince.desktop";
+          "application/zip" = "xarchiver.desktop";
+          "inode/directory" = "pcmanfm-qt.desktop";
+        };
+
+        addedAssociations = {
+          "application/pdf" = "org.gnome.Evince.desktop";
+          "application/x-cbz" = "mpv.desktop";
+          "application/zip" = "xarchiver.desktop";
+          "image/avif" = "imv-dir.desktop";
+          "image/bmp" = "imv-dir.desktop";
+          "image/gif" = "imv-dir.desktop";
+          "image/heif" = "imv-dir.desktop";
+          "image/jpeg" = "imv-dir.desktop";
+          "image/jpg" = "imv-dir.desktop";
+          "image/png" = "imv-dir.desktop";
+          "image/svg+xml" = "imv-dir.desktop";
+          "image/x-bmp" = "imv-dir.desktop";
+          "image/x-ico" = "imv-dir.desktop";
+          "image/x-png" = "imv-dir.desktop";
+          "image/webp" = "mpv.desktop";
+          "inode/directory" = "pcmanfm-qt.desktop";
+        };
       };
     };
 

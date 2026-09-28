@@ -6,8 +6,10 @@
   }: let
     inherit (lib) mkIf mkOption;
     inherit (lib.types) listOf str;
+
     cfg = config.persistence;
     user = config.preferences.user.name;
+
     persistUserData =
       if builtins.hasAttr "/mnt/Data" config.fileSystems
       then "/mnt/Data"
@@ -70,7 +72,6 @@
                 "/var/lib/nixos"
 
                 "/var/lib/systemd/backlight"
-                "/var/lib/systemd/coredump"
                 "/var/lib/systemd/rfkill"
                 "/var/lib/systemd/timers"
 
@@ -82,11 +83,6 @@
               [
                 {
                   file = "/etc/machine-id";
-                  inInitrd = true;
-                }
-                {
-                  file = "/var/lib/systemd/random-seed";
-                  how = "symlink";
                   inInitrd = true;
                 }
               ]
@@ -109,7 +105,7 @@
       };
 
       systemd = {
-        suppressedSystemUnits = ["systemd-machine-id-commit.services"];
+        #suppressedSystemUnits = ["systemd-machine-id-commit.services"];
         services.systemd-machine-id-commit = {
           unitConfig.ConditionPathIsMountPoint = ["" "/persist/system/etc/machine-id"];
           serviceConfig.ExecStart = ["" "systemd-machine-id-setup --commit --root /persist/system"];

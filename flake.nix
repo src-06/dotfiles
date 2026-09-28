@@ -2,21 +2,21 @@
   description = "src-06 NixOS configuration";
 
   outputs = inputs: let
-    inherit (inputs.nixpkgs) lib;
+    inherit (inputs.nixpkgs.lib) filesystem hasPrefix hasInfix hasSuffix;
     import-tree = path:
       builtins.filter (
         file: let
           str = toString file;
           base = baseNameOf str;
         in
-          lib.hasSuffix ".nix" str
+          hasSuffix ".nix" str
           && base != "flake.nix"
-          && !lib.hasInfix "/overlays/" str
-          && !lib.hasInfix "/packages/" str
-          && !lib.hasInfix "/result/" str
-          && !lib.hasInfix "/_" str
-          && !lib.hasPrefix "_" base
-      ) (lib.filesystem.listFilesRecursive path);
+          && !hasInfix "/overlays/" str
+          && !hasInfix "/packages/" str
+          && !hasInfix "/result/" str
+          && !hasInfix "/_" str
+          && !hasPrefix "_" base
+      ) (filesystem.listFilesRecursive path);
   in
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {imports = import-tree ./.;};
 
@@ -40,15 +40,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #umbriel = {
-    #  url = "git+https://github.com/noctalia-dev/umbriel";
-    #  inputs = {
-    #    nixpkgs.follows = "nixpkgs";
-    #    xdg-desktop-portal-umbriel.follows = null;
-    #  };
-    #};
+    umbriel = {
+      url = "github:noctalia-dev/umbriel";
+      #url = "git+https://github.com/noctalia-dev/umbriel";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        xdg-desktop-portal-umbriel.follows = "";
+      };
+    };
 
-    #noctalia.url = "github:noctalia-dev/noctalia/cachix";
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
     nvf = {
       url = "github:notashelf/nvf";
@@ -56,8 +57,11 @@
     };
 
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "";
+      };
     };
 
     nix-vscode-extensions = {

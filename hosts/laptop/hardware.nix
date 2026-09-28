@@ -1,14 +1,8 @@
 {self, ...}: {
-  flake.nixosModules.laptop = {
-    pkgs,
-    system,
-    modulesPath,
-    ...
-  }: {
-    imports = [
-      (modulesPath + "/installer/scan/not-detected.nix")
-      self.nixosModules.btrfs-ephemeral
-      self.nixosModules.amd-cpu
+  flake.nixosModules.laptop = {system, ...}: {
+    imports = with self.nixosModules; [
+      amd-cpu
+      btrfs-ephemeral
     ];
 
     nixpkgs.hostPlatform = system;
@@ -19,14 +13,11 @@
     };
 
     boot = {
-      kernelPackages = pkgs.linuxPackages_zen;
-
       kernelParams = [
         #"quiet"
         #"splash"
         #"loglevel=3"
         "ivrs_ioapic[5]=00:14.0"
-        #"amdgpu.ppfeaturemask=0xffffffff"
       ];
 
       kernel.sysctl = {
@@ -36,12 +27,11 @@
         "vm.dirty_background_ratio" = 5;
       };
 
-      supportedFilesystems = ["ntfs"];
-
       loader = {
-        systemd-boot = {
+        grub = {
           enable = true;
-          configurationLimit = 5;
+          device = "nodev";
+          efiSupport = true;
         };
 
         efi = {

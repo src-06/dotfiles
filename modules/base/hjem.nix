@@ -4,42 +4,45 @@
     lib,
     ...
   }: let
+    inherit (lib) mkOption mkIf mkDefault;
+    inherit (lib.types) bool attrs;
     inherit (config.preferences.user) name home;
+
     cfg = config.hjem;
   in {
     options.hjem = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
+      enable = mkOption {
+        type = bool;
         default = true;
         description = "Enable Hjem user file management wrapper";
       };
 
-      file = lib.mkOption {
-        type = lib.types.attrs;
+      file = mkOption {
+        type = attrs;
         default = {};
         description = "Files under directory $HOME (~)";
       };
 
-      cache.files = lib.mkOption {
-        type = lib.types.attrs;
+      cache.files = mkOption {
+        type = attrs;
         default = {};
         description = "Files under directory ~/.cache";
       };
 
-      config.files = lib.mkOption {
-        type = lib.types.attrs;
+      config.files = mkOption {
+        type = attrs;
         default = {};
         description = "Files under directory ~/.config";
       };
 
-      data.files = lib.mkOption {
-        type = lib.types.attrs;
+      data.files = mkOption {
+        type = attrs;
         default = {};
         description = "Files under directory ~/.local/share";
       };
 
-      state.files = lib.mkOption {
-        type = lib.types.attrs;
+      state.files = mkOption {
+        type = attrs;
         default = {};
         description = "Files under directory ~/.local/state";
       };
@@ -49,12 +52,12 @@
       inputs.hjem.nixosModules.default
     ];
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
       hjem = {
-        clobberByDefault = lib.mkDefault true;
+        clobberByDefault = mkDefault true;
 
         users.${name} = {
-          enable = lib.mkDefault true;
+          enable = mkDefault true;
           user = name;
           directory = home;
 

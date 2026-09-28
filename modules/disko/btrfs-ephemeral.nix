@@ -4,13 +4,16 @@
     lib,
     ...
   }: let
+    inherit (lib) mkEnableOption mkOption mkIf;
+    inherit (lib.types) str;
+
     cfg = config.programs.btrfs-ephemeral;
   in {
     options.programs.btrfs-ephemeral = {
-      enable = lib.mkEnableOption "Enable Btrfs (root tmpfs) filesystem";
+      enable = mkEnableOption "Enable Btrfs (with root tmpfs) filesystem";
 
-      disk = lib.mkOption {
-        type = lib.types.str;
+      disk = mkOption {
+        type = str;
         example = "/dev/disk/by-id/...";
         description = "Device path. Recomended using '/dev/disk/by-id/...'";
       };
@@ -20,7 +23,7 @@
       inputs.disko.nixosModules.disko
     ];
 
-    config = lib.mkIf cfg.enable {
+    config = mkIf cfg.enable {
       disko.devices = {
         disk.main = {
           device = cfg.disk;

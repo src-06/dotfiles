@@ -1,16 +1,14 @@
 {self, ...}: {
   flake.nixosModules.laptop = {
-    imports = [
-      self.nixosModules.general
+    imports = with self.nixosModules; [
+      general
 
-      self.nixosModules.desktop
-      self.nixosModules.apps
-      self.nixosModules.devs
+      desktop
+      apps
+      devs
 
-      self.nixosModules.services
+      services
     ];
-
-    programs.resolved.enable = true;
 
     persistence.data.dirs = [
       "Downloads"

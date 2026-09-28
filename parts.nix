@@ -19,13 +19,13 @@
   };
 
   flake = let
-    inherit (inputs.nixpkgs) lib;
+    inherit (inputs.nixpkgs.lib) nixosSystem mapAttrs;
 
     mkHost = host: cfg:
-      lib.nixosSystem {
+      nixosSystem {
         inherit (cfg) system;
         specialArgs = {
-          inherit inputs;
+          inherit inputs host;
           system = cfg.system;
           outputs = self.outputs;
         };
@@ -35,9 +35,7 @@
     listHost = {
       laptop = {
         system = "x86_64-linux";
-        modules = [
-          self.nixosModules.laptop
-        ];
+        modules = [self.nixosModules.laptop];
       };
     };
   in {
@@ -45,6 +43,6 @@
       inherit inputs;
     };
 
-    nixosConfigurations = lib.mapAttrs mkHost listHost;
+    nixosConfigurations = mapAttrs mkHost listHost;
   };
 }

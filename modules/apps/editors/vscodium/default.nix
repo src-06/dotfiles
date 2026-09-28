@@ -49,6 +49,9 @@
         budparr.language-hugo-vscode
         svelte.svelte-vscode
         vue.volar
+
+        amiralizadeh9480.laravel-extra-intellisense
+        murtuzadev.laravel-maestro
       ];
     };
 
@@ -72,6 +75,9 @@
         "security.workspace.trust.enabled" = false;
         "extensions.autoUpdate" = "off";
         "js/ts.suggest.paths" = false;
+        "emmet.includeLanguages" = {
+          "blade" = "html";
+        };
       };
 
       "VSCodium/User/keybindings.json".text = builtins.toJSON [

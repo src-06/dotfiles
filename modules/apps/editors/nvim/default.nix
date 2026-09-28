@@ -104,6 +104,11 @@
           surround.enable = true;
         };
 
+        filetype.extension = {
+          fsh = "glsl";
+          vsh = "glsl";
+        };
+
         treesitter = {
           enable = true;
           indent.enable = true;
@@ -125,11 +130,7 @@
 
           nix = {
             enable = true;
-
-            lsp = {
-              enable = true;
-              servers = ["nil" "nixd"];
-            };
+            lsp.servers = ["nil" "nixd"];
           };
 
           bash.enable = true;
@@ -138,17 +139,33 @@
           json.enable = true;
           toml.enable = true;
           yaml.enable = true;
+          xml.enable = true;
 
           markdown.enable = true;
+
+          clang.enable = true;
+          python.enable = true;
+          typescript.enable = true;
+
+          glsl.enable = true;
         };
       };
     };
 
-    xdg.mime.addedAssociations = {
-      "text/*" = "mvim.desktop";
-      "text/markdown" = "mvim.desktop";
-      "text/plain" = "mvim.desktop";
-      "text/xml" = "mvim.desktop";
+    xdg.mime = {
+      defaultApplications = {
+        "text/*" = "mvim.desktop";
+        "text/markdown" = "mvim.desktop";
+        "text/plain" = "mvim.desktop";
+        "text/xml" = "mvim.desktop";
+      };
+
+      addedAssociations = {
+        "text/*" = "mvim.desktop";
+        "text/markdown" = "mvim.desktop";
+        "text/plain" = "mvim.desktop";
+        "text/xml" = "mvim.desktop";
+      };
     };
 
     persistence.cache.dirs = [
