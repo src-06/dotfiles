@@ -9,7 +9,7 @@
   in {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscodium-fhs;
+      package = pkgs.vscodium;
       # If in repo NixOS have extension in list use from `vscode-extensions` if not found uses from source vscode marketplace `vscode-marketplace` (nix-community/nix-vscode-extensions)
       extensions = with pkgs.vscode-extensions;
       with pkgs.vscode-marketplace; [
@@ -46,18 +46,9 @@
         yzhang.markdown-all-in-one
         zaaack.markdown-editor
 
-        budparr.language-hugo-vscode
         svelte.svelte-vscode
         vue.volar
-
-        amiralizadeh9480.laravel-extra-intellisense
-        murtuzadev.laravel-maestro
       ];
-    };
-
-    xdg.mime.removedAssociations = {
-      "text/plain" = "codium.desktop";
-      "inode/directory" = "codium.desktop";
     };
 
     hjem.config.files = {

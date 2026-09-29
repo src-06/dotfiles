@@ -15,7 +15,12 @@
       settings.vim = {
         vimAlias = true;
 
-        extraPackages = [pkgs.tree-sitter];
+        extraPackages = with pkgs; [
+          tree-sitter
+
+          blade-formatter
+          unocss-language-server
+        ];
 
         theme = {
           enable = true;
@@ -34,12 +39,19 @@
           tabstop = 4;
         };
 
+        clipboard = {
+          enable = true;
+          registers = "unnamed,unnamedplus";
+          providers.wl-copy.enable = true;
+        };
+
         lineNumberMode = "number";
         statusline.lualine.enable = true;
         tabline.nvimBufferline.enable = true;
         syntaxHighlighting = true;
-        autocomplete.nvim-cmp.enable = true;
+        autocomplete.blink-cmp.enable = true;
         autopairs.nvim-autopairs.enable = true;
+        comments.comment-nvim.enable = true;
         snippets.luasnip.enable = true;
         presence.neocord.enable = true;
         telescope.enable = true;
@@ -101,26 +113,55 @@
         utility = {
           direnv.enable = true;
           icon-picker.enable = true;
+          mkdir.enable = true;
+          multicursors.enable = true;
+          preview.glow.enable = true;
           surround.enable = true;
         };
 
-        filetype.extension = {
-          fsh = "glsl";
-          vsh = "glsl";
+        filetype = {
+          extension = {
+            fsh = "glsl";
+            vsh = "glsl";
+          };
+
+          pattern = {
+            ".*%.blade%.php" = "blade";
+          };
+        };
+
+        formatter.conform-nvim = {
+          enable = true;
+          setupOpts = {
+            formatters_by_ft = {
+              blade = ["blade-formatter"];
+            };
+          };
         };
 
         treesitter = {
           enable = true;
           indent.enable = true;
+
+          grammars = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
+            blade
+          ];
         };
 
         lsp = {
           enable = true;
           formatOnSave = true;
           lightbulb.enable = true;
-          lspSignature.enable = true;
           trouble.enable = true;
           otter-nvim.enable = true;
+
+          servers = {
+            unocss = {
+              cmd = ["unocss-language-server" "--stdio"];
+              filetypes = ["html" "blade"];
+              root_markers = ["uno.config.js" "uno.config.ts" "unocss.config.js" "unocss.config.ts"];
+            };
+          };
         };
 
         languages = {
@@ -148,6 +189,13 @@
           typescript.enable = true;
 
           glsl.enable = true;
+
+          html.enable = true;
+          css.enable = true;
+          php = {
+            enable = true;
+            lsp.servers = ["intelephense"];
+          };
         };
       };
     };

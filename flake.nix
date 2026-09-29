@@ -42,7 +42,6 @@
 
     umbriel = {
       url = "github:noctalia-dev/umbriel";
-      #url = "git+https://github.com/noctalia-dev/umbriel";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         xdg-desktop-portal-umbriel.follows = "";
