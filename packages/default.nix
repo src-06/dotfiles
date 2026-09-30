@@ -1,5 +1,5 @@
 {pkgs}: {
   imouto-cursor-theme = pkgs.callPackage ./imouto-cursor-theme {};
-  pear-desktop = pkgs.callPackage ./pear-desktop {};
+  youtube-music = pkgs.callPackage ./youtube-music {};
   unocss-language-server = pkgs.callPackage ./unocss-language-server {};
 }

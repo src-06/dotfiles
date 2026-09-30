@@ -13,19 +13,19 @@
   makeDesktopItem,
   nix-update-script,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "pear-desktop";
+stdenv.mkDerivation rec {
+  pname = "youtube-music";
   version = "3.11.0";
 
   src = fetchFromGitHub {
     owner = "src-06";
     repo = "pear-desktop";
-    tag = "v${finalAttrs.version}";
+    tag = "v${version}";
     hash = "sha256-M8YFpeauM55fpNyHSGQm8iZieV0oWqOieVThhglKKPE=";
   };
 
   pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src;
+    inherit pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
     hash = "sha256-BNvAGM9ECtptDwxWsmJVq82Bky1AxslYt51FyvOBEvs=";
@@ -58,8 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
   desktopItems = [
     (makeDesktopItem {
       name = "youtube-music";
-      exec = "pear-desktop %u";
-      icon = "pear-desktop";
+      exec = "youtube-music %u";
+      icon = "youtube-music";
       desktopName = "YouTube Music";
       comment = "YouTube Music Desktop App bundled with custom plugins (and built-in adblocker / downloader)";
       startupWMClass = "youtube-music";
@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p $out/{Applications,bin}
       mv pack/mac*/YouTube\ Music.app $out/Applications
-      ln -s "$out/Applications/YouTube Music.app/Contents/MacOS/YouTube Music" $out/bin/pear-desktop
+      ln -s "$out/Applications/YouTube Music.app/Contents/MacOS/YouTube Music" $out/bin/youtube-music
     ''
     + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       mkdir -p "$out/share/pear-desktop"
@@ -83,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       pushd assets/generated/icons/png
       for file in *.png; do
-        install -Dm0644 $file $out/share/icons/hicolor/''${file//.png}/apps/pear-desktop.png
+        install -Dm0644 $file $out/share/icons/hicolor/''${file//.png}/apps/youtube-music.png
       done
       popd
     ''
@@ -93,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
   postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-    makeWrapper ${electron}/bin/electron $out/bin/pear-desktop \
+    makeWrapper ${electron}/bin/electron $out/bin/youtube-music \
       --add-flags $out/share/pear-desktop/resources/app.asar \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
@@ -107,14 +107,14 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Electron wrapper around YouTube Music";
     homepage = "https://github.com/pear-devs/pear-desktop";
     changelog = "https://github.com/pear-devs/pear-desktop/blob/master/changelog.md#${
-      lib.replaceStrings ["."] [""] finalAttrs.src.tag
+      lib.replaceStrings ["."] [""] src.tag
     }";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       aacebedo
       SuperSandro2000
     ];
-    mainProgram = "pear-desktop";
+    mainProgram = pname;
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
@@ -122,4 +122,4 @@ stdenv.mkDerivation (finalAttrs: {
       "aarch64-darwin"
     ];
   };
-})
+}

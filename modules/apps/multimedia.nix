@@ -12,7 +12,7 @@
 
       # Music player
       rufin
-      pear-desktop
+      youtube-music
 
       # Image viewer
       imv

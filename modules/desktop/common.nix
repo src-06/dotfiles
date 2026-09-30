@@ -2,7 +2,7 @@
   flake.nixosModules.desktop = {pkgs, ...}: {
     environment = {
       systemPackages = with pkgs; [
-        (papirus-icon-theme.override {color = "yaru";})
+        (gruvbox-plus-icons.override {folder-color = "orange";})
         imouto-cursor-theme
         adw-gtk3
 

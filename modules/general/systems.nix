@@ -71,7 +71,7 @@
       openssh
 
       btop
-      fastfetch
+      microfetch
     ];
 
     persistence = {
