@@ -49,7 +49,7 @@
         statusline.lualine.enable = true;
         tabline.nvimBufferline.enable = true;
         syntaxHighlighting = true;
-        autocomplete.blink-cmp.enable = true;
+        autocomplete.nvim-cmp.enable = true;
         autopairs.nvim-autopairs.enable = true;
         comments.comment-nvim.enable = true;
         snippets.luasnip.enable = true;
@@ -123,10 +123,6 @@
           extension = {
             fsh = "glsl";
             vsh = "glsl";
-          };
-
-          pattern = {
-            ".*%.blade%.php" = "blade";
           };
         };
 
