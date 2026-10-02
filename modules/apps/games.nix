@@ -8,13 +8,13 @@
     programs = {
       gamemode.enable = true;
       gamescope.enable = true;
-      steam.enable = true;
+      #steam.enable = true;
     };
 
     persistence = {
       cache.dirs = [
-        ".steam"
-        ".local/share/Steam"
+        #".steam"
+        ".local/share/Steam/compatibilitytools.d"
         ".local/share/umu"
       ];
 
