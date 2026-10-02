@@ -4,5 +4,9 @@
       enable = true;
       openFirewall = true;
     };
+
+    persistence.dirs = [
+      "/var/lib/tailscale"
+    ];
   };
 }
