@@ -2,12 +2,13 @@
   flake.nixosModules.general = {
     outputs,
     pkgs,
+    lib,
     config,
     ...
   }: let
     inherit (config.preferences.user) name home;
   in {
-    system.stateVersion = "26.05";
+    system.stateVersion = lib.trivial.release;
 
     nixpkgs = {
       overlays = [outputs.overlays.default];
